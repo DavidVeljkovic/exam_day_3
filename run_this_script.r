@@ -2,4 +2,4 @@
 sapply(list.files("ExamPackage/R/", full.names = TRUE), source)
 load("ExamPackage/data/transactions.rda")
 
-get_best_customer(x=transactions, date = "2008-10-01")
+get_best_profit(x=transactions, date = "2008-10-01")
