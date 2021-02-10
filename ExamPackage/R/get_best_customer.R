@@ -26,7 +26,7 @@
 #' @importFrom lubridate ymd floor_date
 
 # function
-get_best_customer <- function(x, date){
+get_best_profit <- function(x, date){
   # transform data
   x <- data.table(x)
   x$TransDate <-  dmy(x$TransDate, tz="UTC")
