@@ -1,0 +1,101 @@
+```{r data generation, echo = FALSE, message=F}
+Customer <- sample(100:999,25)
+SalesData <- data.frame(Customer = paste0("C_",Customer),
+                     PurchAmount = plyr::round_any(as.numeric(paste0(sample(100:399,75), ".", sample(10:95,75, replace=T))), 0.05),
+                     Cost = plyr::round_any(as.numeric(paste0(sample(20:90,75, replace=T), ".", sample(10:95,75))), 0.05)
+)
+SalesData$Customer <- as.character(SalesData$Customer)
+SalesData <- SalesData[order(SalesData$Customer),]
+# SalesData$OrderNumber <- ave(SalesData$PurchAmount, SalesData$Customer, FUN = seq_along)
+SalesData <- SalesData[,c(1, 2, 3)]
+rownames(SalesData) <- 1:nrow(SalesData)
+  
+# Create the lagged variable
+# library(data.table)
+# data <- data.table(SalesData)
+# data[, CostLead := shift(Cost, type="lead"), by=Customer]
+# sum(data$CostLead, na.rm=TRUE)
+library(dplyr)
+SalesData1 <- data.frame(SalesData %>% group_by(Customer) %>% mutate(CostLead=lead(Cost)))
+# Take the sum
+sol <- sum(SalesData1$CostLead, na.rm=TRUE)
+
+# wrong solution: lag
+SalesData2 <- SalesData %>% group_by(Customer) %>% mutate(CostLag=lag(Cost)) 
+# Take the sum
+sol2 <- sum(SalesData2$CostLag, na.rm=TRUE)
+
+# wrong solution: not grouped by customer
+# Take the sum
+sol3 <- sum(lead(SalesData$Cost), na.rm=TRUE)
+
+# wrong solution: not grouped by customer and lag
+# Take the sum
+sol4 <- sum(lag(SalesData$Cost), na.rm=TRUE)
+
+#old
+# # order by revenue
+# SalesData1 <- SalesData[order(SalesData$PurchAmount),]
+# SalesData1$row <-  1:50
+# 
+# cutoff <- sum(SalesData1$PurchAmount)* 0.75
+# x <- 0 # define revenue
+# y <- 0 # define customer
+# 
+# while(x < cutoff){
+#   y <- y+1
+#   x <- x + SalesData1$PurchAmount[y]
+# }
+# sol <- as.character(SalesData$Customer[y-1])
+# sol1 <- as.character(SalesData$Customer[y-4])
+# sol2 <- as.character(SalesData$Customer[y+4])
+# sol3 <- as.character(sample(SalesData[!(SalesData$Customer %in% c(sol, sol1, sol2)),]$Customer,1))
+```
+
+Question
+========
+The following table shows the first 5 rows of the table ```SalesData```. Each row represents a transaction. The columns contain the customer ids (```Customer```), purchase amount (```PurchAmount```) and cost (```Cost```). Both ```PurchAmount``` and ```Cost``` are numeric columns. The rows of the table are already ordered by purchase date (not shown here). 
+<br></br>
+```{r, echo=F} 
+knitr::kable(rbind(head(SalesData,6), c(as.character("..."), "...", "...")), caption = "Table: Excerpt from SalesData", type="html")
+```
+<br></br>
+To generate in **R** the **entire** ```SalesData``` table, please use the following code:
+<br></br>
+```
+library(data.table)
+SalesData <- data.table(Customer = c(`r paste0("'C_",Customer,"'")`), 
+                    PurchAmount = c(`r paste0(SalesData$PurchAmount,collapse=",")`), 
+                     Cost = c(`r paste0(SalesData$Cost,collapse=",")`)
+)
+```
+<br></br>
+The company needs to know, for each transaction (i.e., each row in the table), the cost of the next transaction of the same customer. To do this, create a lead variable on the ```Cost``` column, with an offset of 1. Store the results in a new column in the same table. Name this column ```LeadCost```. Note: Do not change the order of rows.
+
+
+<br></br>
+What is the sum of all the entries of the ```LeadCost``` column? 
+
+Answerlist
+----------
+* `r sol`
+* `r sol2`
+* `r sol3`
+* `r sol4`
+
+Solution
+========
+
+Answerlist
+----------
+* True. 
+* False. 
+* False. 
+* False. 
+
+Meta-information
+================
+exname: Day 1, Q1: lead variables
+extype: mchoice
+exsolution: 1000
+exshuffle: TRUE

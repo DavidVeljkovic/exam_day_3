@@ -1,0 +1,105 @@
+```{r data generation, echo = FALSE}
+Customer <- sample(100:999,50)
+myData <- data.frame(Customer = paste0("C_",Customer),
+                     PurchAmount = plyr::round_any(as.numeric(paste0(sample(100:399,50), ".", sample(10:95,50))), 0.05),
+                     Cost = plyr::round_any(as.numeric(paste0(sample(20:90,50), ".", sample(10:95,50))), 0.05)
+)
+
+myData$Customer <- as.character(myData$Customer)
+
+KPIs <- function(x){
+  total_profit <- sum(x$PurchAmount,na.rm=T) - sum(x$Cost,na.rm=T)
+  profit_per_transaction <- round(mean(x$PurchAmount - x$Cost,na.rm=T),2)
+  result <- list(total_profit, profit_per_transaction)
+  return(result)      
+}
+# KPIs(myData, "PurchAmount", "Cost", "Customer")
+KPIs2 <- function(x){
+  total_profit <- sum(x$PurchAmount,na.rm=T) - sum(x$Cost,na.rm=T)
+  profit_per_transaction <- round(mean(x$PurchAmount) + mean(x$Cost),2) # wrong: calculation
+  result <- list(profit_per_transaction, total_profit)# wrong: order of result elements
+  return(result)      
+}
+KPIs3 <- function(x){
+  total_profit <- sum(x$PurchAmount,na.rm=T) - sum(x$Cost,na.rm=T) 
+  profit_per_transaction <- round(mean(x$PurchAmount) + mean(x$Cost),2) # wrong: calculation
+  result <- list(total_profit, profit_per_transaction)
+  return(result)       
+}
+KPIs4 <- function(x){
+  total_profit <- sum(x$PurchAmount,na.rm=T) - sum(x$Cost,na.rm=T)
+  profit_per_transaction <- round(median(x$PurchAmount - x$Cost),2) # wrong: median 
+  result <- list(total_profit, profit_per_transaction)
+  return(result)        
+}
+
+sol <- KPIs(myData)
+sol1 <- KPIs2(myData)
+sol2 <- KPIs3(myData)
+sol3 <- KPIs4(myData)
+```
+
+Question
+========
+The following table shows the first 5 rows of the table ```myData```. Each row represents a transaction. The columns contain the customer ids (```Customer```), purchase amount (```PurchAmount```) and cost (```Cost```). Both ```PurchAmount``` and ```Cost``` are numeric columns. 
+
+<br></br>
+```{r, echo=F} 
+knitr::kable(rbind(head(myData,5), c(as.character("..."), "...", "...")), caption = "Table: Excerpt from myData", type="html")
+```
+<br></br>
+To generate the **entire** ```myData``` table in **R**, please run the following code:
+<br></br>
+```
+myData <- data.frame(Customer = c(`r paste0("'C_",Customer,"'")`), 
+                    PurchAmount = c(`r paste0(myData$PurchAmount,collapse=",")`), 
+                     Cost = c(`r paste0(myData$Cost,collapse=",")`)
+)
+```
+<br></br>
+The company uses the ```KPIs()``` function below to calculate one important KPI: the *total profit* across all customers. The function takes as input the ```myData``` table and returns the total profit. The total profit is defined as the total purchase amount (sum over the column ```PurchAmount```) minus the total cost (sum over the ```Cost``` column). 
+<br></br>
+
+```
+KPIs <- function(x){
+  total_profit <- sum(x$PurchAmount) - sum(x$Cost)
+  result <- list(total_profit)
+  return(result)   
+}
+```
+<br></br>
+Modify the ```KPIs()``` function to additionally return one more KPI: the *average profit across transactions*. 
+
+The profit per transaction is defined as the difference between the ```PurchAmount``` and the ```Cost``` of each transaction. The average profit across transactions is the mean over the profits of each transaction.
+
+Your function should return two KPIs, listed in this order: the *total profit* (as already defined in the initial function) and the *average profit across transactions*. 
+
+Apply the new function to the **entire** table ```myData```.
+<br></br>
+
+Which of the following answers corresponds to the function output? If necessary, round the result to two decimal points. 
+<br></br>
+
+Answerlist
+----------
+* `r format(sol, scientific=F)`
+* `r format(sol1, scientific=F)`
+* `r format(sol2, scientific=F)`
+* `r format(sol3, scientific=F)`
+
+Solution
+========
+
+Answerlist
+----------
+* True. 
+* False. 
+* False. 
+* False. 
+
+Meta-information
+================
+exname: Day 1, Q2: functions
+extype: mchoice
+exsolution: 1000
+exshuffle: TRUE

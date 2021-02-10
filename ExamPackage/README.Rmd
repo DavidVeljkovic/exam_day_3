@@ -1,0 +1,30 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# ExamPackage
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of ExamPackage is to give an easy way to calculate the most profitable customer within a month of a given date. 
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(ExamPackage)
+get_best_customer(transaction, date="2008-06-04")
+```

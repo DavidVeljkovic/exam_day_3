@@ -1,0 +1,102 @@
+install.packages("exams", repos = "http://R-Forge.R-project.org")
+library("exams")
+#### day1
+setwd("~/Dropbox/#+ Advanced Python & R - MASTER-FOLDER/exams/R/daily/day1")
+exm <- list(
+  "Question1"   = c("day1_2.Rmd"),
+  "Question2"   = c("day1_3.Rmd")
+)
+
+# define number of points to pass the test and number of students taking the test
+pass <- 1
+number.students <- 40
+
+set.seed(123)
+test <- exams2openolat(exm, n = number.students, name = "R-daily-exams-day1",
+                       points = 1, maxattempts = 0, cutvalue = pass, solutionswitch = FALSE,
+                       duration = 15, nsamp = length(exm[[1]]),
+                       stitle = names(exm), ititle = "Question",
+                       navigation = "linear", shufflesections = TRUE,
+                       adescription = "", sdescription = "",
+                       base64 = FALSE,table = TRUE,
+                       eval = list(partial = T))
+exams_metainfo(test)
+# exams2pdf(exm, n = 1, name = "R-daily-exams-day1",
+#                        points = 1, maxattempts = 0, cutvalue = pass, solutionswitch = FALSE,
+#                        duration = 15, nsamp = length(exm[[1]]),
+#                        stitle = names(exm), ititle = "Question",
+#                        adescription = "", sdescription = "",
+#                        base64 = FALSE,table = TRUE,
+#                        eval = list(partial = T))
+
+setwd("~/Dropbox/#+ Advanced Python & R - MASTER-FOLDER/exams/R/daily/day2")
+exm <- list(
+  "Question1"   = c("day2_2.Rmd"),
+  "Question2"   = c("day2_3.Rmd")
+)
+
+set.seed(123)
+test <- exams2openolat(exm, n = number.students, name = "R-daily-exams-day2",
+                       points = 1, maxattempts = 0, cutvalue = pass, solutionswitch = FALSE,
+                       duration = 15, nsamp = length(exm[[1]]),
+                       stitle = names(exm), ititle = "Question",
+                       navigation = "linear", shufflesections = TRUE,
+                       adescription = "", sdescription = "",
+                       base64 = FALSE,table = TRUE,
+                       eval = list(partial = T))
+exams_metainfo(test)
+
+#### day3
+setwd("~/Dropbox/#+ Advanced Python & R - MASTER-FOLDER/exams/R/daily/day3")
+exm <- list(
+  "Question1"   = c("day3_1.Rmd"),
+  "Question2"   = c("day3_2.Rmd")
+)
+
+# choose smaller n as we have to check the solution for duplicated answer options
+set.seed(123)
+test <- exams2openolat(exm, n = 10, name = "R-daily-exams-day3",
+                       points = 1, maxattempts = 0, cutvalue = pass, solutionswitch = FALSE,
+                       duration = 15, nsamp = length(exm[[1]]),
+                       stitle = names(exm), ititle = "Question",
+                       navigation = "linear", shufflesections = TRUE,
+                       adescription = "", sdescription = "",
+                       base64 = FALSE,table = TRUE,
+                       eval = list(partial = T))
+exams_metainfo(test)
+
+#### day4
+setwd("~/Dropbox/#+ Advanced Python & R - MASTER-FOLDER/exams/R/daily/day4")
+exm <- list(
+  "Question1"   = c("day4_1.Rmd"),
+  "Question2"   = c("day4_2.Rmd")
+)
+set.seed(123)
+test <- exams2openolat(exm, n = number.students, name = "R-daily-exams-day4",
+                       points = 1, maxattempts = 0, cutvalue = pass, solutionswitch = FALSE,
+                       duration = 15, nsamp = length(exm[[1]]),
+                       stitle = names(exm), ititle = "Question",
+                       navigation = "linear", shufflesections = TRUE,
+                       adescription = "", sdescription = "",
+                       base64 = FALSE,table = TRUE,
+                       eval = list(partial = T))
+exams_metainfo(test)
+
+#### day5
+pass <- 2
+number.students <- 20
+
+setwd("~/Dropbox/#+ Advanced Python & R - MASTER-FOLDER/exams/R/daily/day5")
+exm <- list(
+  "Question"   = c("day5.Rmd")
+)
+set.seed(123)
+test <- exams2openolat(exm, n = number.students, name = "R-daily-exams-day5",
+                       points = 1, maxattempts = 0, cutvalue = pass, solutionswitch = FALSE,
+                       duration = 30, nsamp = length(exm[[1]]),
+                       stitle = names(exm), ititle = "Question",
+                       navigation = "linear", shufflesections = TRUE,
+                       adescription = "", sdescription = "",
+                       base64 = FALSE,table = TRUE,
+                       eval = list(partial = T))
+exams_metainfo(test)

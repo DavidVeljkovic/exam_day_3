@@ -1,0 +1,5 @@
+"0","sol1 <- get_best_customer(transactions, date_sample, time_unit2 = ""month"")[2]
+"
+"2","Error in get_best_customer(transactions, date_sample, time_unit2 = ""month"") : 
+  unused argument (time_unit2 = ""month"")
+"
