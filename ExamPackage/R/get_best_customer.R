@@ -50,7 +50,7 @@ get_best_profit <- function(x, date){
   Best_Custsomer <- x_profit_unit_time [Profit_Customer_floor==Best_Profit, Customer]
 
   results <- list(date, Best_Custsomer, Best_Profit)
-  names(results) <- c("Best custsomer", "Best profit")
+  names(results) <- c("Date", "Best custsomer", "Best profit")
   return(results)
 }
 
